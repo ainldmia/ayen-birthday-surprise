@@ -1,0 +1,821 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --wine: #310609;
+  --wine-light: #4b1015;
+  --red: #a90012;
+  --cream: #f8e5bd;
+  --text: #fff2e7;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #3b0306; /* Warna asas maroon gelap */
+  background-image: 
+    radial-gradient(#ffffff 1.25px, transparent 1.25px), 
+    radial-gradient(#ffffff 1.25px, #3b0306 1.25px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  background-attachment: fixed; /* PENTING: Supaya corak kekal statik dan cantik bila skrol */
+  font-family: 'Montserrat', sans-serif;
+  color: #fce4ec;
+}
+
+.envelope-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+
+  /* --- KESAN LATAR BELAKANG CORAK POLKA DOT
+  background-color: #3b0306; /* Warna latar belakang maroon gelap */
+  background-image: 
+    radial-gradient(#ffffff 1.25px, transparent 1.25px), 
+    radial-gradient(#ffffff 1.25px, #3b0306 1.25px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  
+  text-align: center;
+}
+
+.intro-title h1 {
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2.5rem, 6vw, 4.2rem);
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: #fce4ec;
+  margin: 0;
+}
+
+.intro-title p,
+.dedication-text h2,
+.signature span {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  color: #f7a8b8;
+  margin: 5px 0 0 0;
+}
+
+.envelope-button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  margin: 42px 0 25px;
+  padding: 0;
+}
+
+.envelope {
+  position: relative;
+  width: min(460px, 90vw); /* Saiz yang lebih seimbang dan cantik */
+  height: 300px;
+  background: linear-gradient(145deg, #7a001a, #520011);
+  box-shadow: 0 18px 35px #160003aa;
+  display: grid;
+  place-items: center;
+  transition: transform .7s ease;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Lipatan Sisi Kiri & Kanan */
+.envelope::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #650014 50%, #8c001d 50%);
+  clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
+  z-index: 2;
+}
+
+/* Penutup Atas Sampul (Flap) - Segi Tiga Tajam Sempurna */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 58%; /* Labuh ngam sampai ke tengah cop lilin */
+  background: linear-gradient(180deg, #b8002a 0%, #85001d 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top;
+  transition: transform .7s ease;
+  z-index: 4; /* Berada di atas lipatan sisi & bawah sebelum dibuka */
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4));
+}
+
+/* Bahagian Muka Depan / Poket Bawah (Ditukar ke clip-path supaya tidak terpotong) */
+.envelope-front {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background: linear-gradient(0deg, #5e0014 0%, #780019 100%);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  z-index: 3;
+  filter: drop-shadow(0 -3px 6px rgba(0, 0, 0, 0.3));
+}
+
+/* --- GAYA RAMA-RAMA DI KANAN ATAS SAMPUL --- */
+.envelope-button {
+  position: relative; /* PENTING: Supaya kedudukan rama-rama mengikut butang ini */
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  margin: 42px 0 25px;
+  padding: 0;
+}
+
+.butterfly-decor {
+  position: absolute;
+  top: -100px;         /* Melaraskan kedudukan ke atas (keluar sedikit dari bucu sampul) */
+  right: -60px;       /* Melaraskan kedudukan ke kanan (hinggap di bucu) */
+  width: 105px;       /* Saiz lebar rama-rama */
+  height: auto;
+  z-index: 10;        /* Sentiasa berada di lapisan paling atas */
+  pointer-events: none; /* Membolehkan klik tembus untuk membuka sampul */
+  transform: rotate(15deg); /* Sengetkan sedikit supaya nampak natural */
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45)); /* Bayang realistik */
+  animation: flutter 3s ease-in-out infinite; /* Animasi kepak lembut */
+}
+
+/* Animasi kepak rama-rama */
+@keyframes flutter {
+  0%, 100% {
+    transform: rotate(15deg) scale(1);
+  }
+  50% {
+    transform: rotate(18deg) scale(1.05);
+  }
+}
+
+/* Gaya Hiasan Bunga di Bawah Kiri Sampul */
+.flower-decor {
+  position: absolute;
+  bottom: -110px;       /* Labuhkan sedikit ke bawah keluar dari garisan sampul */
+  left: -60px;         /* Anjakkan ke kiri keluar dari bucu sampul */
+  width: 140px;        /* Saiz lebar bunga (boleh ubah nombor ini jika mahu lebih besar/kecil) */
+  height: auto;
+  z-index: 10;         /* Sentiasa berada di atas lapisan latar belakang */
+  pointer-events: none; /* Membolehkan klik tembus terus ke butang sampul */
+  transform: rotate(-10deg); /* Sengetkan sedikit supaya nampak tumbuh secara semula jadi */
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45)); /* Kesan bayang lembut 3D */
+}
+
+/* Cop Mohor Emas (Wax Seal) */
+.wax-seal {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #4a0c12;
+  font-size: 26px;
+  background: radial-gradient(circle, #ffe49a, #b87923 72%);
+  border: 4px double #f8d17a;
+  box-shadow: 0 4px 10px #260000;
+}
+
+/* Stail Butang Hint di Bawah */
+.open-hint {
+  margin-top: 15px;
+  font-size: 0.85rem;
+  letter-spacing: 2.5px;
+  color: #ebd7dd;
+  border: 1px solid rgba(235, 215, 221, 0.25);
+  padding: 12px 28px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.flower {
+  position: absolute;
+  z-index: 6;
+  font-size: 75px;
+  color: #fff0df;
+  text-shadow: 0 0 8px #fff;
+}
+.flower-left { left: -40px; bottom: 8px; color: #a90027; }
+.flower-right { right: -38px; top: 0; }
+.butterfly { position: absolute; z-index: 6; left: -30px; top: 40px; font-size: 27px; }
+.open-hint { font-size: 15px; border: 1px solid #fff2e7; border-radius: 30px; padding: 8px 25px; }
+
+.envelope-page.opened .envelope { transform: translateY(20px) scale(.85); }
+.envelope-page.opened .envelope-flap { transform: rotateX(180deg); }
+.envelope-page.opened { min-height: 65vh; }
+
+.letter-content {
+  display: none;
+  animation: reveal 1s ease both;
+}
+.letter-content.visible { display: block; }
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section-wrap {
+  width: min(100% - 36px, 1050px);
+  margin: 0 auto;
+  padding: 75px 20px;
+}
+
+.dedication {
+  min-height: 780px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.hero-photo {
+    width: 90%;
+    height: 450px;
+    margin: 0 auto;
+    position: relative; 
+    overflow: hidden; 
+}
+
+/* Memastikan div asal mengekalkan saiz dan border lamanya */
+.hero-photo.photo-placeholder {
+    overflow: visible; 
+    position: relative;
+}
+
+/* Mengatur gambar utama memenuhi ruang penuh */
+.hero-photo.photo-placeholder img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+
+.hero-photo .flower-icon {
+    position: absolute;
+    width: 1cap;
+    max-width: 400px;
+    height: 30px;
+    object-fit: contain;
+    
+    z-index: 99;
+    pointer-events: none;
+}
+
+
+/* 3. Kedudukan Bunga 1: KANAN ATAS */
+.hero-photo .flower-top {
+    top: -100px;
+    right: -100px;
+    transform: scaleX(-1) scaleY(-1);
+}
+
+/* 4. Kedudukan Bunga 2: KIRI BAWAH */
+.hero-photo .flower-bottom {
+    bottom: -100px;
+    left: -100px;
+}
+
+.photo-placeholder {
+  display: grid;
+  place-items: center;
+  color: #f7d8c9;
+  background:
+    linear-gradient(135deg, #6d3b3b99, #18030599),
+    repeating-linear-gradient(45deg, #542329, #542329 10px, #3d1016 10px, #3d1016 20px);
+  border: 8px solid #5b171d;
+  outline: 1px solid #d7b49c;
+  overflow: hidden;
+  text-align: center;
+}
+.photo-placeholder span { font-size: 12px; letter-spacing: 3px; opacity: .8; }
+
+.dedication-text {
+  text-align: right;
+  margin: 22px 20px 70px;
+}
+.dedication-text p { font-size: clamp(1.4rem, 3vw, 2.1rem); }
+.dedication-text h2 { line-height: 1.2; }
+
+.music-area { width: min(100%, 700px); margin: auto; position: relative; }
+.music-caption { text-align: center; font-size: 1.3rem; margin-bottom: 18px; }
+.music-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  background: #8b3900;
+  border: 4px solid #f6e1c5;
+  border-radius: 12px;
+  box-shadow: 0 0 0 7px #3b0b0f, 0 10px 20px #160003;
+}
+.album-cover {
+  width: 95px;
+  height: 85px;
+  background: linear-gradient(135deg, #161616, #75513c);
+  display: grid;
+  place-items: center;
+  font-size: 42px;
+}
+.music-info { display: flex; flex-direction: column; gap: 6px; text-align: left; flex: 1; }
+.music-info strong { font-size: 15px; }
+.music-info span, .music-info a { font-size: 12px; color: #fff0d8; text-decoration: none; }
+.spotify-icon { color: white; font-size: 25px; }
+
+.love-letter {
+  position: relative;
+  background: #481015;
+  margin-bottom: 60px;
+  padding: 70px 40px;
+}
+.section-heading h2 {
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  line-height: .9;
+  letter-spacing: 2px;
+}
+.section-heading span {
+  display: block;
+  font-family: "Great Vibes", cursive;
+  font-size: clamp(2.6rem, 7vw, 4.8rem);
+  margin-left: 85px;
+}
+.stamp {
+  position: absolute;
+  right: 35px;
+  top: 65px;
+  width: 105px;
+  height: 125px;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  color: #fcf8f2;
+  background: #f5c4c3;
+  border: 7px dotted #fff1df;
+  font-size: 38px;
+  transform: rotate(2deg);
+}
+.stamp small { font: 10px "Poppins", sans-serif; }
+.love-letter h3 {
+    font-family: 'Great Vibes', cursive; /* Pilih font cantik bersambung */
+    font-size: 3rem;                     /* Besarkan sedikit saiz supaya nampak menyerlah */
+    font-weight: 400; 
+    letter-spacing: 1px;                 /* Jarak huruf yang selesa */
+    color: #fcf8f2;                      /* Warna krim lembut */
+    margin: 55px 0 15px; 
+    text-align: center;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Tambah bayang halus untuk kesan estetik */
+}
+.letter-paragraph { font-size: 18px; line-height: 1.85; text-align: justify; }
+.letter-columns {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: 35px;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.memory-stack {
+  display: flex;
+  flex-direction: column;
+  background: #2c0e0e; /* Warna latar belakang jalur photobooth */
+  padding: 12px 12px 30px 12px; /* Ruang kosong sekeliling & bawah untuk gaya polroid/strip */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  gap: 10px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+/* Tetapan untuk Photo 1 dan Photo 2 */
+.memory-photo { 
+    height: 200px; 
+    position: relative; 
+    overflow: hidden; 
+    border: 1px solid #6b1426; 
+}
+
+/* Tambah jarak (margin) supaya Photo 1 dan Photo 2 tidak melekat */
+.memory-photo:not(:last-child) {
+    margin-bottom: 15px; 
+}
+
+.memory-photo img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
+}
+
+
+/* .signature { text-align: right; margin-top: 35px; font-size: 1.5rem; }
+.signature span { font-size: 2.5rem; } */
+
+.signature { 
+  text-align: right; 
+  margin-top: 35px; 
+  font-family: 'Marck Script', cursive; /* Gaya tulisan tangan yang elegan */
+  font-size: 1.8rem; 
+  color: #fce4ec; /* Warna merah jambu cair lembut */
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.signature span { 
+  font-family: 'Great Vibes', cursive; /* Tulisan tangan bersambung yang lebih berseni untuk nama */
+  font-size: 3rem; /* Saiz nama diletakkan lebih besar & menonjol */
+  color: #ffccd5; /* Warna lebih cerah untuk nama */
+  letter-spacing: 1px;
+}
+
+.story { position: relative; }
+.story-title {
+  font-family: "DM Serif Display", serif;
+  font-size: 2.8rem;
+  line-height: .9;
+  margin-bottom: 30px;
+}
+.story-title span { font-family: "Great Vibes", cursive; font-size: 3.6rem; }
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.8fr;
+  grid-template-rows: 280px 280px;
+  gap: 15px;
+}
+
+.story-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Memastikan gambar mengisi ruang grid dengan seimbang */
+  display: block;
+}
+
+.story-photo { min-height: 260px; border: 7px solid #7b202a; }
+.story-photo.wide { grid-column: 3; }
+.story-photo:nth-child(3) { grid-row: 1; }
+.story-photo:nth-child(4) { grid-row: 2; }
+.quote { font-family: Georgia, serif; font-size: 1.2rem; margin-top: 28px; line-height: 1.5; }
+
+.reasons { 
+  position: relative; /* Penting untuk jadi rujukan kedudukan tajuk */
+  padding-top: 80px;  /* Tambah ruang atas sedikit supaya tajuk tidak terkeluar terus dari skrin */
+}
+
+.reasons-title {
+  position: absolute;       /* Jadikan ia terapung di atas border */
+  top: 30px;                /* Laraskan kedudukan menegak supaya tepat memotong garisan border atas */
+  left: 50%;                /* Tarik ke tengah skrin */
+  transform: translateX(-50%); /* Pusatkan sepenuhnya kedudukan tajuk */
+  width: 60%;               /* Hadkan lebar supaya teks 'REASON WHY' dan 'YOU SPECIAL' berada di kiri & kanan */
+  display: flex;
+  justify-content: space-between;
+  font-family: "DM Serif Display", serif;
+  font-size: clamp(1.2rem, 3.5vw, 2.2rem);
+  color: #fffac8;
+  z-index:5;               /* Pastikan tajuk berada di lapisan paling atas melintasi border */
+  background-color: transparent; /* Pastikan tiada latar belakang menghalang */
+  padding: 0 15px;
+}
+
+.reason-box {
+  position: relative; 
+  background-color: transparent; 
+  border: 3px solid #f2b4f0;      
+  border-radius: 16px;      
+  min-height: 320px;
+  max-width: 650px;          /* Mengecilkan lebar keseluruhan kotak */
+  margin: 0 auto;            /* Letakkan di tengah-tengah skrin */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+}
+/* Tetapan umum untuk kotak teks */
+.reason-list { 
+  position: absolute; /* Menjadikan ia terapung merentasi border */
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+  width: 280px; /* Tetapkan lebar kotak teks supaya kemas */
+}
+
+/* Kedudukan kumpulan kiri (menembusi border sebelah kiri) */
+.reason-list.left-side {
+  left: -140px; 
+}
+
+/* Kedudukan kumpulan kanan (menembusi border sebelah kanan) */
+.reason-list.right-side {
+  right: -140px;
+}
+
+.reason-list p {
+  background: #fef0d9; /* Warna krim */
+  color: #3d1b14;      /* Teks coklat gelap */
+  border: 2px solid #f2b4f0; /* Border halus pada setiap kotak teks */
+  border-radius: 40px;
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 13px;
+  line-height: 1.4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.tulips { 
+  font-size: clamp(4rem, 10vw, 7rem); 
+  text-align: center; 
+  filter: drop-shadow(0 5px 5px #160003); 
+  z-index: 2; /* Pastikan bunga di tengah-tengah */
+}
+
+.closing-message { 
+  position: relative; 
+  z-index: 3; 
+  text-align: center; /* Ini yang buatkan teks jadi di tengah */
+  padding: 20px;      /* Tambah jarak sikit supaya tak melekat ke tepi */
+}
+
+.closing-message p { 
+  font-size: clamp(0.75rem, 2vw, 1.05rem); 
+  margin-bottom: 6px; 
+}
+
+.closing-message p span { 
+  font-family: inherit; 
+  font-size: inherit;   
+}
+
+.closing-message a {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 9px 25px;
+  border: 2px solid #fffac8;
+  border-radius: 30px;
+  color: white;
+  text-decoration: none;
+}
+
+.envelope-bottom {
+  position: absolute;
+  bottom: -130px;
+  left: -5%;
+  width: 110%;
+  height: 340px;
+  background: #a90012;
+  clip-path: polygon(0 0, 50% 60%, 100% 0, 100% 100%, 0 100%);
+}
+.envelope-bottom::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #c00018;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+}
+
+@media (max-width: 700px) {
+  .section-wrap { padding: 55px 12px; width: min(100% - 20px, 1050px); }
+  .love-letter { padding: 45px 20px; }
+  .stamp { position: static; margin: 25px 0 0 auto; width: 75px; height: 90px; }
+  .love-letter h3 { margin-top: 25px; }
+  .letter-columns { grid-template-columns: 1fr; }
+  .memory-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .memory-photo { height: 150px; }
+  .story-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 170px 170px; }
+  .story-photo.wide { grid-column: auto; }
+  .story-photo:nth-child(3), .story-photo:nth-child(4) { grid-row: auto; }
+  .reason-box { grid-template-columns: 1fr; }
+  .tulips { grid-row: 1; }
+  .reasons-title { margin: 0 4px -5px; font-size: 1.45rem; }
+  .reason-list { gap: 10px; }
+  .reason-list p { font-size: 13px; }
+  .hero-photo { height: 220px; }
+  .dedication { min-height: 650px; }
+  .music-card { padding: 12px; gap: 10px; }
+  .album-cover { width: 70px; height: 70px; }
+}
+
+
+/* Kotak Utama Pemain Muzik */
+.music-card-container {
+    position: relative; /* PENTING: Supaya reben kenal rujukan penjuru kotak */
+    max-width: 650px;
+    width: 100%;
+    margin: 40px auto;
+    background-color: #24070a;
+    border: 1px solid rgba(140, 28, 40, 0.4);
+    border-radius: 20px;
+    padding: 10px 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    font-family: 'Poppins', sans-serif;
+    color: #fcf8f2;
+}
+
+.music-ribbon {
+    position: absolute;
+    top: -40px;   /* Tarik sedikit ke atas keluar dari border */
+    left: -40px;  /* Tarik sedikit ke kiri keluar dari border */
+    z-index: 10;
+}
+
+.music-ribbon img {
+    width: 130px;  /* Saiz lebar reben */
+    height: auto;
+    transform: rotate(-50deg); /* Mengiringkan reben supaya nampak estetik */
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
+}
+
+.music-top-caption {
+    text-align: center;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    color: #d4a373;
+    margin-bottom:-20px; /* Jarak antara teks luar dengan border */
+}
+
+.custom-music-player {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.music-content-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Vinyl di Kiri */
+.vinyl-container {
+    width: 75px;
+    height: 75px;
+    background: #111;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    border: 2px solid #333;
+    flex-shrink: 0;
+    margin-right: 15px;
+}
+
+.vinyl-record {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.vinyl-center-dot {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #24070a;
+    border: 2px solid #555;
+    border-radius: 50%;
+}
+
+/* Animasi Pusingan Vinyl */
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.vinyl-container.playing {
+    animation: spin 4s linear infinite;
+}
+
+/* Maklumat Lagu */
+.music-details {
+    flex-grow: 1;
+}
+
+.music-details h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 4px 0;
+}
+
+.music-details p {
+    font-size: 0.9rem;
+    color: #d1a1a5;
+    margin: 0 0 8px 0;
+}
+
+/* Gelombang Bunyi Kecil */
+.sound-waves {
+    display: flex;
+    gap: 3px;
+    align-items: flex-end;
+    height: 12px;
+}
+
+.sound-waves span {
+    width: 3px;
+    background-color: #e57373;
+    border-radius: 2px;
+    height: 4px;
+}
+
+.playing .sound-waves span {
+    animation: wavePulse 0.8s ease-in-out infinite alternate;
+}
+.sound-waves span:nth-child(2) { animation-delay: 0.2s; }
+.sound-waves span:nth-child(3) { animation-delay: 0.4s; }
+.sound-waves span:nth-child(4) { animation-delay: 0.1s; }
+
+@keyframes wavePulse {
+    0% { height: 4px; }
+    100% { height: 14px; }
+}
+
+/* Butang Play Bulat Besar di Kanan */
+.big-play-btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: #fce4ec;
+    border: none;
+    color: #24070a;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    padding-left: 3px; /* Supaya ikon playcenter nampak seimbang */
+}
+
+.big-play-btn:hover {
+    transform: scale(1.08);
+    background-color: #fff;
+}
+
+/* Bahagian Progress Bar */
+.progress-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.75rem;
+    color: #d1a1a5;
+    font-family: monospace;
+}
+
+.progress-bar-bg {
+    flex-grow: 1;
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+#progressBar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #e57373, #fce4ec);
+    border-radius: 3px;
+    transition: width 0.1s linear;
+}
+
+.next-chapter-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 24px;
+  background-color: transparent;
+  border: 2px solid #4a1515;  /* Warna border coklat gelap */
+  border-radius: 30px;
+  color: #4a1515;            /* Warna teks coklat gelap */
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Kesan bila tetikus hover / ditekan pada butang */
+.next-chapter-btn:hover {
+  background-color: #4a1515;
+  color: #fef0d9;            /* Bertukar warna latar belakang dan teks */
+  transform: translateY(-2px);
+}

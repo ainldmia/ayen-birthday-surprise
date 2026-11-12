@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Letter - Just For You</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+
+    <!-- PAGE 1: ENVELOPE -->
+    <!-- <section class="envelope-page" id="home">
+
+      <div class="intro-title">
+        <h1>A Special Letter</h1>
+        <p>Just For you</p>
+      </div>
+
+      <button class="envelope-button" id="openLetter" aria-label="Open the letter">
+        <div class="envelope">
+          <div class="envelope-flap"></div>
+          <div class="envelope-front"></div>
+          <div class="wax-seal">♡</div>
+          <span class="flower flower-left">✿</span>
+          <span class="flower flower-right">✿</span>
+          <span class="butterfly">🦋</span>
+        </div>
+      </button>
+
+      <p class="open-hint">Click wax to open</p>
+
+    </section> -->
+
+    <section class="envelope-page" id="home">
+  <!-- Bahagian Tajuk -->
+  <div class="intro-title">
+    <h1>Happy Birthday Nazrin!</h1>
+    <p>Special Letter For You</p>
+  </div>
+
+  <!-- Butang Sampul Surat -->
+  <button class="envelope-button" id="openLetter" aria-label="Open the letter">
+    <img src="image/ramarama.png" alt="Rama-rama" class="butterfly-decor">
+    <img src="image/bunga3.png" alt="Bunga" class="flower-decor">
+    <div class="envelope">
+      <div class="envelope-flap"></div>
+      <div class="envelope-front"></div>
+      <div class="wax-seal">♥</div>
+    </div>
+  </button>
+
+  <!-- Hint di bawah -->
+  <p class="open-hint">
+    CLICK WAX TO OPEN <span style="font-size: 1.1em;">✉</span>
+  </p>
+</section>
+
+    <!-- LETTER CONTENT -->
+    <div class="letter-content" id="letterContent">
+
+      <!-- DEDICATION SECTION -->
+      <section class="dedication section-wrap">
+
+        <div class="hero-photo photo-placeholder" data-label="Your favourite photo">
+    <img src="image/photo.jpeg" alt="My Favourite Photo">
+    <img src="image/bunga1.png" alt="Flower Top" class="flower-icon flower-top">
+    <img src="image/bunga1.png" alt="Flower Bottom" class="flower-icon flower-bottom">
+</div>
+
+        <div class="dedication-text">
+          <p>To my love...</p>
+          <h2>nazrin</h2>
+        </div>
+
+          <!-- Teks tajuk diletakkan DI LUAR border -->
+<p class="music-top-caption">— PLAY THE MUSIC FIRST —</p>
+
+<!-- Kotak border bermula di sini -->
+<div class="music-card-container">
+
+    <!-- GAMBAR REBEN (Letak di sini supaya mudah dikawal dengan position absolute) -->
+    <div class="music-ribbon">
+        <img src="image/ribbon.png" alt="Ribbon">
+    </div>
+
+    <div class="custom-music-player">
+        
+        <!-- Piring Hitam (Vinyl) di Kiri -->
+        <div class="vinyl-container" id="vinyl-disc">
+            <img src="image/image.vinyl.png" alt="Vinyl Record" class="vinyl-record">
+            <div class="vinyl-center-dot"></div>
+        </div>
+
+
+        <!-- Maklumat Lagu & Butang Play -->
+        <div class="music-content-row">
+            <div class="music-details">
+                <h3>Last Night on Earth</h3>
+                <p>Green Day</p>
+                <div class="sound-waves">
+                    <span></span><span></span><span></span><span></span>
+                </div>
+            </div>
+
+            <button type="button" id="playBtn" class="big-play-btn" aria-label="Play music">
+                ▶
+            </button>
+        </div>
+
+        <!-- Bar Kemajuan Masa (Progress Bar) & Timer -->
+        <div class="progress-section">
+            <span id="currentTime">0:00</span>
+            <div class="progress-bar-bg" id="progressContainer">
+                <div id="progressBar"></div>
+            </div>
+            <span id="durationTime">2:49</span>
+        </div>
+
+        <!-- Fail Audio Tempatan -->
+        <audio id="myAudio" preload="auto">
+            <source src="Green Day - Last Night on Earth.mp3" type="audio/mpeg">
+            Your browser does not support audio.
+        </audio>
+
+    </div>
+</div>
+
+      <!-- LOVE LETTER SECTION -->
+      <section class="love-letter section-wrap">
+
+        <div class="section-heading">
+          <h2>LOVE LETTER'S</h2>
+          <span>For ayen</span>
+        </div>
+
+        <div class="stamp">
+          ♡
+          <small>Love, born in<br>13/11...</small>
+        </div>
+
+        <h3>Hi, awak...</h3>
+
+        <p class="letter-paragraph">
+          Thank you for always being there for me and making my days feel more meaningful. You may not always realise it, but the little things you do will always hold a special place in my heart.
+
+Thank you for listening to me, for staying, and for all the moments we’ve shared together. There are so many little things about you that may seem simple, but somehow, they never fail to make me smile. I hope you know how much I appreciate the way you treat me. Thank you for being you. I’m really grateful for you, and I hope you know how much you mean to me. 🤍
+
+I’m sorry for all the times I’ve made you overthink or question things. I never intended to hurt you or make you feel unsure about anything. Sometimes I may not realise how my words or actions affect you, but please know that I never meant to make you feel that way. I’m so sorry.
+
+
+        </p>
+
+       <div class="letter-columns">
+
+        
+        <!-- KIRI: Ditukar menjadi rupa jalur Photobooth menegak -->
+          <div class="memory-stack">
+            <div class="memory-photo photo-placeholder" data-label="Memory photo 1">
+              <img src="image/gambar8.jpeg" alt="Memory Photo 1">
+            </div>
+
+            <div class="memory-photo photo-placeholder" data-label="Memory photo 2">
+              <img src="image/gambar3.jpeg" alt="Memory Photo 2">
+            </div>
+          </div>
+
+
+          <!-- KANAN: Perenggan Teks Sambungan -->
+          <p class="letter-paragraph">
+            I hope you know how special you are to me, and I hope we can continue making more memories together, from the smallest things to stories we never imagined we’d experience. I hope that whatever you’re going through, you’ll always be surrounded by good things and genuine people.
+
+And don’t forget, there’s always someone here cheering for you, caring about you, and wishing nothing but the best for you. No matter what happens, I’ll always be happy to see you grow, achieve your dreams, and become the best version of yourself.
+
+So please take care of yourself, keep smiling, and always remember that you’re appreciated more than you know. 🤍
+          </p>
+
+        </div>
+
+        <div class="signature">
+          With Love,<br>
+          <span>Ainul Damia</span>
+        </div>
+
+      </section>
+
+
+      <!-- STORY SECTION -->
+      <section class="story section-wrap">
+
+        <div class="story-title">
+          THIS IS OUR<br>
+          <span>Love Story</span>
+        </div>
+
+        <div class="story-grid">
+
+          <div class="story-photo photo-placeholder" data-label="Story photo 1">
+            <img src="image/gambar6.jpeg" alt="Story Photo 1">
+          </div>
+
+          <div class="story-photo photo-placeholder" data-label="Story photo 2">
+            <img src="image/gambar5.jpeg" alt="Story Photo 2">
+          </div>
+
+          <div class="story-photo photo-placeholder" data-label="Story photo 3">
+            <img src="image/gambar7.jpeg" alt="Story Photo 3">
+          </div>
+
+          <div class="story-photo wide photo-placeholder" data-label="Story photo 4">
+            <img src="image/gambar4.jpeg" alt="Story Photo 4">
+          </div>
+
+          <div class="story-photo photo-placeholder" data-label="Story photo 5">
+            <img src="image/gambar11.jpeg" alt="Story Photo 5">
+          </div>
+
+          <div class="story-photo photo-placeholder" data-label="Story photo 6">
+            <img src="image/gambar10.jpeg" alt="Story Photo 6">
+          </div>
+
+        </div>
+
+
+      </section>
+
+      <!-- REASONS SECTION -->
+      <section class="reasons section-wrap">
+
+  <div class="reasons-title">
+    <span>REASON WHY</span>
+    <span>YOU SPECIAL</span>
+  </div>
+
+  <div class="reason-box">
+
+    <!-- Kumpulan Teks Kiri (Keluar ke border kiri) -->
+    <div class="reason-list left-side">
+      <p>Awak baik dengan saya, tak pernah marah-marah.</p>
+      <p>Awak selalu jadi pendengar yang setia yang boleh saya berkongsi apa saja.</p>
+      <p>Awak selalu bagi saya hadiah, saya suka sangat.</p>
+    </div>
+
+    <!-- Imej Bunga di Tengah -->
+    <div class="tulips">💐</div>
+
+    <!-- Kumpulan Teks Kanan (Keluar ke border kanan) -->
+    <div class="reason-list right-side">
+      <p>Awak selalu ambil berat pasal saya.</p>
+      <p>Saya suka dengar suara awak bila cakap dengan saya, soft jee hehe.</p>
+      <p>Dan yang paling special, sebab awak adalah awak.</p>
+    </div>
+
+  </div>
+
+</section>
+
+
+      
+     <!-- CLOSING SECTION -->
+      <section class="closing">
+
+        <div class="closing-message">
+          <p>Setakat ini sajalah coretan kecil untuk hari istimewa awak.</p>
+          <p>
+            <span>Thank you</span> sebab sudi baca sampai habis, awak.
+          </p>
+
+         <a href="#" id="nextChapterBtn" class="next-chapter-btn">
+      See you on our next chapter ✨
+    </a>
+  </div> 
+
+  <div class="envelope-bottom"></div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
